@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { calculateIntersectionPosition } from '../utils/boardLayout';
+import { calculateIntersectionPosition, calculateIntersectionSpacing } from '../utils/boardLayout';
 
 interface BoardDebugProps {
   size: number;
@@ -12,6 +12,8 @@ export const BoardDebug: React.FC<BoardDebugProps> = ({ size }) => {
     index: i,
     position: calculateIntersectionPosition(i, size)
   }));
+
+  const spacing = calculateIntersectionSpacing(size);
 
   return (
     <View style={styles.container} pointerEvents="none">
@@ -34,6 +36,20 @@ export const BoardDebug: React.FC<BoardDebugProps> = ({ size }) => {
       <Text style={styles.debugText}>G: {calculateIntersectionPosition(6, size).toFixed(1)}%</Text>
       <Text style={styles.debugText}>H: {calculateIntersectionPosition(7, size).toFixed(1)}%</Text>
       <Text style={styles.debugText}>J: {calculateIntersectionPosition(8, size).toFixed(1)}%</Text>
+
+      {/* Debug du spacing et des indices */}
+      <Text style={styles.debugTitle}>Spacing & Indices:</Text>
+      <Text style={styles.debugText}>Espacement: {spacing.toFixed(2)}%</Text>
+      <Text style={styles.debugText}>Demi-espacement: {(spacing/2).toFixed(2)}%</Text>
+      <Text style={styles.debugText}>Marges négatives: -{(spacing/2).toFixed(2)}%</Text>
+      
+      {/* Debug des positions avec indices */}
+      <Text style={styles.debugTitle}>Positions avec indices:</Text>
+      {positions.map(({ index, position }) => (
+        <Text key={`pos-${index}`} style={styles.debugText}>
+          ({index},{index}): {position.toFixed(1)}% | marge: -{(spacing/2).toFixed(1)}%
+        </Text>
+      ))}
     </View>
   );
 };

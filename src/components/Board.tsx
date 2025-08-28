@@ -23,7 +23,7 @@ export const Board: React.FC<BoardProps> = ({
   board,
   onIntersectionPress,
   onStoneSelection,
-  showDebug = false, // Désactivé par défaut
+  showDebug = true, // Temporairement activé pour debug
 }) => {
   const [selectedStone, setSelectedStone] = useState<{row: number, col: number} | null>(null);
 
@@ -44,8 +44,8 @@ export const Board: React.FC<BoardProps> = ({
 
   return (
     <View style={[styles.board, { aspectRatio: 1 }]}>
-      {/* Composant de debug temporaire */}
-      <BoardDebug size={size} />
+      {/* Composant de debug temporaire - seulement affiché si showDebug est true */}
+      {showDebug && <BoardDebug size={size} />}
 
       {/* Couche des coordonnées discrètes */}
       <BoardLabels size={size} />
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     elevation: 6,
     overflow: 'hidden',
-    padding: 24, // Padding augmenté pour faire de la place aux repères de coordonnées
+    padding: BOARD_PADDING, // Utilisation de la constante BOARD_PADDING
     position: 'relative',
   },
 });

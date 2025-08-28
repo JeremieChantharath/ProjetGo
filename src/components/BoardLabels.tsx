@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { calculateIntersectionPosition, calculateIntersectionSpacing } from '../utils/boardLayout';
 
 interface BoardLabelsProps {
   size: number;
@@ -13,7 +14,7 @@ export const BoardLabels: React.FC<BoardLabelsProps> = ({ size }) => {
   const rowLabels = Array.from({ length: size }, (_, i) => (i + 1).toString());
 
   // Calcul de la taille des intersections basé sur la taille du plateau
-  const tilePercent = 100 / (size - 1);
+  const tileSize = calculateIntersectionSpacing(size);
 
   return (
     <View style={styles.container} pointerEvents="none">
@@ -24,8 +25,8 @@ export const BoardLabels: React.FC<BoardLabelsProps> = ({ size }) => {
           style={[
             styles.columnLabel,
             {
-              left: `${(index / (size - 1)) * 100}%`,
-              transform: [{ translateX: -(tilePercent / 2) }],
+              left: `${calculateIntersectionPosition(index, size)}%`,
+              transform: [{ translateX: `-${tileSize / 2}%` as any }],
             },
           ]}
         >
@@ -40,8 +41,8 @@ export const BoardLabels: React.FC<BoardLabelsProps> = ({ size }) => {
           style={[
             styles.rowLabel,
             {
-              top: `${(index / (size - 1)) * 100}%`,
-              transform: [{ translateY: -(tilePercent / 2) }],
+              top: `${calculateIntersectionPosition(index, size)}%`,
+              transform: [{ translateY: `-${tileSize / 2}%` as any }],
             },
           ]}
         >
@@ -64,7 +65,6 @@ const styles = StyleSheet.create({
   },
   columnLabel: {
     position: 'absolute',
-    top: -20, // Légèrement au-dessus du plateau
     fontSize: 10,
     color: '#666', // Gris discret comme demandé
     fontWeight: '500',
@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
   },
   rowLabel: {
     position: 'absolute',
-    left: -20, // Légèrement à gauche du plateau
     fontSize: 10,
     color: '#666', // Gris discret comme demandé
     fontWeight: '500',

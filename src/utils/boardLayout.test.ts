@@ -1,72 +1,91 @@
-import { 
-  calculateIntersectionPosition, 
-  calculateGridLinePosition, 
-  calculateIntersectionSpacing,
+import {
+  BOARD_PADDING,
   GRID_MARGIN_PERCENT,
-  GRID_SIZE_PERCENT 
+  GRID_SIZE_PERCENT,
+  calculateIntersectionSpacing,
+  calculateIntersectionPosition,
+  calculateGridLinePosition
 } from './boardLayout';
 
-describe('Board Layout Utils', () => {
+describe('boardLayout', () => {
+  describe('constantes', () => {
+    test('BOARD_PADDING doit être 16', () => {
+      expect(BOARD_PADDING).toBe(16);
+    });
+
+    test('GRID_MARGIN_PERCENT doit être 16', () => {
+      expect(GRID_MARGIN_PERCENT).toBe(16);
+    });
+
+    test('GRID_SIZE_PERCENT doit être 68 (100 - 2*16)', () => {
+      expect(GRID_SIZE_PERCENT).toBe(68);
+    });
+  });
+
   describe('calculateIntersectionSpacing', () => {
-    it('should calculate correct spacing for 9x9 board', () => {
-      const size = 9;
-      const expectedSpacing = GRID_SIZE_PERCENT / (size - 1); // 68 / 8 = 8.5
-      
-      expect(calculateIntersectionSpacing(size)).toBe(expectedSpacing);
+    test('doit retourner 8.5 pour un plateau 9x9', () => {
+      const spacing = calculateIntersectionSpacing(9);
+      expect(spacing).toBe(8.5); // 68 / (9-1) = 68 / 8 = 8.5
+    });
+
+    test('doit retourner 17 pour un plateau 5x5', () => {
+      const spacing = calculateIntersectionSpacing(5);
+      expect(spacing).toBe(17); // 68 / (5-1) = 68 / 4 = 17
     });
   });
 
   describe('calculateIntersectionPosition', () => {
-    it('should calculate correct positions for 9x9 board', () => {
-      const size = 9;
-      const spacing = calculateIntersectionSpacing(size);
-      
-      // Test des positions aux bords
-      expect(calculateIntersectionPosition(0, size)).toBe(GRID_MARGIN_PERCENT); // 16%
-      expect(calculateIntersectionPosition(8, size)).toBe(GRID_MARGIN_PERCENT + (8 * spacing)); // 84%
-      
-      // Test des positions centrales
-      expect(calculateIntersectionPosition(4, size)).toBe(GRID_MARGIN_PERCENT + (4 * spacing)); // 50%
-      
-      // Test des positions intermédiaires
-      expect(calculateIntersectionPosition(2, size)).toBe(GRID_MARGIN_PERCENT + (2 * spacing)); // 33%
-      expect(calculateIntersectionPosition(6, size)).toBe(GRID_MARGIN_PERCENT + (6 * spacing)); // 67%
+    test('doit retourner 16 pour la première intersection (0,0) sur 9x9', () => {
+      const position = calculateIntersectionPosition(0, 9);
+      expect(position).toBe(16); // GRID_MARGIN_PERCENT + (0 * 8.5)
     });
 
-    it('should return exact values for debugging', () => {
-      const size = 9;
-      
-      // Valeurs exactes pour debug
-      console.log('Position 0:', calculateIntersectionPosition(0, size));
-      console.log('Position 1:', calculateIntersectionPosition(1, size));
-      console.log('Position 4:', calculateIntersectionPosition(4, size));
-      console.log('Position 8:', calculateIntersectionPosition(8, size));
-      
-      expect(calculateIntersectionPosition(0, size)).toBe(16);
-      expect(calculateIntersectionPosition(1, size)).toBe(24.5);
-      expect(calculateIntersectionPosition(4, size)).toBe(50);
-      expect(calculateIntersectionPosition(8, size)).toBe(84);
+    test('doit retourner 50 pour l\'intersection centrale (4,4) sur 9x9', () => {
+      const position = calculateIntersectionPosition(4, 9);
+      expect(position).toBe(50); // GRID_MARGIN_PERCENT + (4 * 8.5) = 16 + 34 = 50
+    });
+
+    test('doit retourner 84 pour la dernière intersection (8,8) sur 9x9', () => {
+      const position = calculateIntersectionPosition(8, 9);
+      expect(position).toBe(84); // GRID_MARGIN_PERCENT + (8 * 8.5) = 16 + 68 = 84
+    });
+
+    test('doit retourner 33 pour l\'intersection (2,2) sur 9x9', () => {
+      const position = calculateIntersectionPosition(2, 9);
+      expect(position).toBe(33); // GRID_MARGIN_PERCENT + (2 * 8.5) = 16 + 17 = 33
     });
   });
 
   describe('calculateGridLinePosition', () => {
-    it('should calculate correct grid line positions for 9x9 board', () => {
-      const size = 9;
-      const spacing = calculateIntersectionSpacing(size);
-      
-      // Test des lignes aux bords
-      expect(calculateGridLinePosition(0, size)).toBe(GRID_MARGIN_PERCENT); // 16%
-      expect(calculateGridLinePosition(8, size)).toBe(GRID_MARGIN_PERCENT + (8 * spacing)); // 84%
-      
-      // Test des lignes centrales
-      expect(calculateGridLinePosition(4, size)).toBe(GRID_MARGIN_PERCENT + (4 * spacing)); // 50%
+    test('doit retourner la même valeur que calculateIntersectionPosition', () => {
+      for (let i = 0; i < 9; i++) {
+        const intersectionPos = calculateIntersectionPosition(i, 9);
+        const gridLinePos = calculateGridLinePosition(i, 9);
+        expect(gridLinePos).toBe(intersectionPos);
+      }
     });
   });
 
-  describe('Constants', () => {
-    it('should have correct margin and size values', () => {
-      expect(GRID_MARGIN_PERCENT).toBe(16);
-      expect(GRID_SIZE_PERCENT).toBe(68); // 100 - (2 * 16)
+  describe('vérifications des limites', () => {
+    test('toutes les positions doivent être dans les limites acceptables', () => {
+      const size = 9;
+      for (let i = 0; i < size; i++) {
+        const position = calculateIntersectionPosition(i, size);
+        expect(position).toBeGreaterThanOrEqual(GRID_MARGIN_PERCENT);
+        expect(position).toBeLessThanOrEqual(100 - GRID_MARGIN_PERCENT);
+      }
+    });
+
+    test('l\'espacement doit être cohérent entre toutes les intersections', () => {
+      const size = 9;
+      const spacing = calculateIntersectionSpacing(size);
+      
+      for (let i = 1; i < size; i++) {
+        const currentPos = calculateIntersectionPosition(i, size);
+        const previousPos = calculateIntersectionPosition(i - 1, size);
+        const actualSpacing = currentPos - previousPos;
+        expect(actualSpacing).toBeCloseTo(spacing, 1);
+      }
     });
   });
 });

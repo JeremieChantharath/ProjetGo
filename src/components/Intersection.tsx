@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { Stone } from './Stone';
 import { Player } from '../types/game';
-import { calculateIntersectionPosition } from '../utils/boardLayout';
+import { calculateIntersectionPosition, calculateIntersectionSpacing } from '../utils/boardLayout';
 
 interface IntersectionProps {
   row: number;
@@ -24,7 +24,7 @@ export const Intersection: React.FC<IntersectionProps> = ({
   size,
 }) => {
   // Calcul de la taille des intersections basé sur la taille du plateau
-  const tilePercent = 100 / (size - 1);
+  const tileSize = calculateIntersectionSpacing(size);
   
   return (
     <TouchableOpacity
@@ -33,12 +33,14 @@ export const Intersection: React.FC<IntersectionProps> = ({
       style={[
         styles.intersection,
         {
-          top: `${(row / (size - 1)) * 100}%`,
-          left: `${(col / (size - 1)) * 100}%`,
-          width: `${tilePercent}%`,
-          height: `${tilePercent}%`,
-          marginLeft: -(tilePercent / 2),
-          marginTop: -(tilePercent / 2),
+          top: `${calculateIntersectionPosition(row, size)}%`,
+          left: `${calculateIntersectionPosition(col, size)}%`,
+          width: `${tileSize}%`,
+          height: `${tileSize}%`,
+          transform: [
+            { translateX: -(tileSize / 2) },
+            { translateY: -(tileSize / 2) }
+          ],
         },
       ]}
     >

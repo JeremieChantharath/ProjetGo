@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Board, Player } from '../types/game';
 import { getGroup, hasLiberties, getAdjacentPositions } from '../utils/gameRules';
+import { calculateIntersectionPosition } from '../utils/boardLayout';
 
 interface LibertyIndicatorProps {
   board: Board;
@@ -52,8 +53,8 @@ export const LibertyIndicator: React.FC<LibertyIndicatorProps> = ({
           style={[
             styles.libertyDot,
             {
-              top: (row / size) * 100 + '%',
-              left: (col / size) * 100 + '%',
+              top: `${calculateIntersectionPosition(row, size)}%`,
+              left: `${calculateIntersectionPosition(col, size)}%`,
             },
           ]}
         />
@@ -64,8 +65,8 @@ export const LibertyIndicator: React.FC<LibertyIndicatorProps> = ({
         style={[
           styles.selectionIndicator,
           {
-            top: (selectedRow / size) * 100 + '%',
-            left: (selectedCol / size) * 100 + '%',
+            top: `${calculateIntersectionPosition(selectedRow, size)}%`,
+            left: `${calculateIntersectionPosition(selectedCol, size)}%`,
           },
         ]}
       />
@@ -105,3 +106,4 @@ const styles = StyleSheet.create({
     zIndex: 15,
   },
 });
+

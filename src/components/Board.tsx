@@ -3,7 +3,10 @@ import { View, StyleSheet } from 'react-native';
 import { Grid } from './Grid';
 import { Intersection } from './Intersection';
 import { LibertyIndicator } from './LibertyIndicator';
+import { BoardLabels } from './BoardLabels';
+import { BoardDebug } from './BoardDebug';
 import { Intersection as IntersectionType } from '../types/game';
+import { BOARD_PADDING } from '../utils/boardLayout';
 
 interface BoardProps {
   size: number;
@@ -20,7 +23,7 @@ export const Board: React.FC<BoardProps> = ({
   board,
   onIntersectionPress,
   onStoneSelection,
-  showDebug = false,
+  showDebug = false, // Désactivé par défaut
 }) => {
   const [selectedStone, setSelectedStone] = useState<{row: number, col: number} | null>(null);
 
@@ -41,6 +44,12 @@ export const Board: React.FC<BoardProps> = ({
 
   return (
     <View style={[styles.board, { aspectRatio: 1 }]}>
+      {/* Composant de debug temporaire */}
+      <BoardDebug size={size} />
+
+      {/* Couche des coordonnées discrètes */}
+      <BoardLabels size={size} />
+
       {/* Couche de la grille */}
       <Grid size={size} />
 
@@ -54,6 +63,7 @@ export const Board: React.FC<BoardProps> = ({
           onPress={handleIntersectionPress}
           showDebug={showDebug}
           isSelected={selectedStone?.row === row && selectedStone?.col === col}
+          size={size}
         />
       ))}
 
@@ -78,7 +88,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     elevation: 6,
     overflow: 'hidden',
-    padding: 0,
+    padding: 24, // Padding augmenté pour faire de la place aux repères de coordonnées
     position: 'relative',
   },
 });

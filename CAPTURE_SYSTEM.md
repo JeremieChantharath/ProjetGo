@@ -177,3 +177,4 @@ Le fichier `gameRules.test.ts` contient des tests complets pour :
 Le système de capture implémenté respecte fidèlement les règles officielles du jeu de Go tout en offrant une interface utilisateur intuitive et des performances satisfaisantes. L'architecture modulaire permet des extensions futures et la maintenance du code.
 
 La validation complète par tests unitaires garantit la fiabilité du système, et l'interface utilisateur offre une expérience de jeu agréable avec des indicateurs visuels clairs pour comprendre les mécanismes de capture.
+

@@ -146,3 +146,4 @@ export const captureStones = (board: Board): { newBoard: Board, capturedCount: {
   
   return { newBoard, capturedCount };
 };
+

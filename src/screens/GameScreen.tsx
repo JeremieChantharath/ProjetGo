@@ -37,7 +37,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({ route }) => {
         intersections={intersections}
         board={gameState.board}
         onIntersectionPress={handlePlaceStone}
-        showDebug={true}
+        showDebug={false} // Désactivé pour éviter l'affichage des coordonnées partout
         onStoneSelection={handleStoneSelection}
       />
 

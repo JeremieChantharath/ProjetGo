@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { calculateGridLinePosition } from '../utils/boardLayout';
 
 interface GridProps {
   size: number;
@@ -14,7 +15,9 @@ export const Grid: React.FC<GridProps> = ({ size }) => {
           key={`h-${i}`}
           style={[
             styles.gridLineHorizontal,
-            { top: `${(i / (size - 1)) * 100}%` },
+            { 
+              top: `${calculateGridLinePosition(i, size)}%`,
+            },
           ]}
         />
       ))}
@@ -25,7 +28,9 @@ export const Grid: React.FC<GridProps> = ({ size }) => {
           key={`v-${i}`}
           style={[
             styles.gridLineVertical,
-            { left: `${(i / (size - 1)) * 100}%` },
+            { 
+              left: `${calculateGridLinePosition(i, size)}%`,
+            },
           ]}
         />
       ))}
@@ -36,7 +41,10 @@ export const Grid: React.FC<GridProps> = ({ size }) => {
           key={`s-${idx}`}
           style={[
             styles.starPoint,
-            { top: `${(r / (size - 1)) * 100}%`, left: `${(c / (size - 1)) * 100}%` },
+            { 
+              top: `${calculateGridLinePosition(r, size)}%`, 
+              left: `${calculateGridLinePosition(c, size)}%` 
+            },
           ]}
         />
       ))}

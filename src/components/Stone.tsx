@@ -21,7 +21,7 @@ export const Stone: React.FC<StoneProps> = ({ player, isSelected = false }) => {
 
 const styles = StyleSheet.create({
   stone: {
-    width: '95%',
+    width: '90%', // Légèrement réduit pour éviter d'être coupé
     aspectRatio: 1,
     borderRadius: 999,
     alignSelf: 'center',

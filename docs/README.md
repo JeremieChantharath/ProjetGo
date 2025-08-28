@@ -4,8 +4,12 @@ Ce dossier contient toute la documentation nécessaire pour comprendre, dévelop
 
 ## 📁 Structure des fichiers
 
-### 🔧 **Debug et Collaboration**
+### 🔍 **État et Vérification** (À lire en premier)
+- **[REALITY_CHECK.md](./REALITY_CHECK.md)** - **NOUVEAU** : Vérification de la réalité vs documentation
+- **[CURRENT_STATUS.md](./CURRENT_STATUS.md)** - État actuel du projet et fonctionnalités
 - **[DEBUG_STATUS.md](./DEBUG_STATUS.md)** - État actuel du debug et problèmes identifiés
+
+### 🔧 **Debug et Collaboration**
 - **[COLLABORATION_SUMMARY.md](./COLLABORATION_SUMMARY.md)** - Guide de collaboration efficace
 - **[CHECKLIST.md](./CHECKLIST.md)** - Checklist générale du projet
 
@@ -18,14 +22,16 @@ Ce dossier contient toute la documentation nécessaire pour comprendre, dévelop
 ## 🚀 **Comment utiliser cette documentation**
 
 ### **Pour les développeurs (Cursor, ChatGPT5)**
-1. Commencez par `DEBUG_STATUS.md` pour comprendre l'état actuel
-2. Consultez `COLLABORATION_SUMMARY.md` pour les bonnes pratiques
-3. Utilisez les fichiers spécifiques selon vos besoins
+1. **Commencez par `REALITY_CHECK.md`** pour comprendre l'état réel vs annoncé
+2. Consultez `CURRENT_STATUS.md` pour l'état détaillé du projet
+3. Utilisez `DEBUG_STATUS.md` pour les problèmes actuels
+4. Consultez `COLLABORATION_SUMMARY.md` pour les bonnes pratiques
 
 ### **Pour les utilisateurs/testeurs**
-1. Lisez `COLLABORATION_SUMMARY.md` pour comprendre comment collaborer
-2. Consultez `CHECKLIST.md` pour voir ce qui est fait/à faire
-3. Reportez les problèmes dans les fichiers appropriés
+1. **Lisez `REALITY_CHECK.md`** pour comprendre ce qui est vraiment implémenté
+2. Consultez `CURRENT_STATUS.md` pour l'état fonctionnel
+3. Lisez `COLLABORATION_SUMMARY.md` pour comprendre comment collaborer
+4. Consultez `CHECKLIST.md` pour voir ce qui est fait/à faire
 
 ## 🔍 **Workflow de collaboration**
 
@@ -46,12 +52,14 @@ Ce dossier contient toute la documentation nécessaire pour comprendre, dévelop
 
 ## 📋 **Fichiers prioritaires**
 
-### **À consulter en premier :**
-1. **DEBUG_STATUS.md** - État actuel et problèmes
-2. **COLLABORATION_SUMMARY.md** - Comment collaborer
-3. **CHECKLIST.md** - Ce qui est fait/à faire
+### **À consulter en premier (ordre recommandé) :**
+1. **REALITY_CHECK.md** - **NOUVEAU** : Vérification de la réalité vs documentation
+2. **CURRENT_STATUS.md** - État actuel et fonctionnalités
+3. **DEBUG_STATUS.md** - Problèmes actuels et debug
+4. **COLLABORATION_SUMMARY.md** - Comment collaborer
 
 ### **À consulter selon les besoins :**
+- **CHECKLIST.md** - Ce qui est fait/à faire
 - **ALIGNMENT_IMPROVEMENT.md** - Problèmes d'alignement
 - **COORDINATES_IMPROVEMENT.md** - Problèmes de coordonnées
 - **CAPTURE_SYSTEM.md** - Système de capture
@@ -64,7 +72,12 @@ Cette structure permet de :
 - **Centraliser la documentation** dans un seul endroit
 - **Suivre l'évolution** du projet et des problèmes
 - **Maintenir une trace** de toutes les améliorations
+- **Clarifier la réalité** vs ce qui est annoncé dans la documentation
+
+## ⚠️ **Note importante**
+
+Suite aux corrections apportées, la documentation est maintenant **cohérente avec la réalité du code**. Les améliorations annoncées sont soit **implémentées**, soit **clairement marquées comme en cours**.
 
 ---
 
-**💡 Conseil** : Commencez toujours par lire `DEBUG_STATUS.md` et `COLLABORATION_SUMMARY.md` pour comprendre l'état actuel et comment collaborer efficacement.
+**💡 Conseil** : Commencez **TOUJOURS** par lire `REALITY_CHECK.md` pour comprendre l'état réel du projet, puis `CURRENT_STATUS.md` pour les détails fonctionnels.

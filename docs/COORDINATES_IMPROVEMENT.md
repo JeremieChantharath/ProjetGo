@@ -16,26 +16,26 @@
 
 ## 🔧 **Modifications Apportées**
 
-### 1. **Suppression des Coordonnées de Debug** (`Intersection.tsx`)
+### 1. **Suppression des Coordonnées de Debug** (`Intersection.tsx`) ✅ **IMPLÉMENTÉ**
 - Suppression de l'affichage des coordonnées sur toutes les intersections
 - Conservation de la propriété `showDebug` pour usage futur si nécessaire
 - Interface mise à jour avec `isSelected` pour la sélection des pierres
 
-### 2. **Composant BoardLabels** (utilisé à la place de BoardCoordinates)
+### 2. **Composant BoardLabels** ✅ **IMPLÉMENTÉ** (utilisé à la place de BoardCoordinates)
 - Coordonnées discrètes sur les bords uniquement
 - **Colonnes** : A, B, C, D, E, F, G, H, J (en haut)
 - **Lignes** : 1, 2, 3, 4, 5, 6, 7, 8, 9 (à gauche)
 - Style discret : gris clair (#666666), petite taille (12px)
 - Positionnement précis avec les marges du plateau
 
-**⚠️ Note :** Le composant s'appelle `BoardLabels.tsx` et non `BoardCoordinates.tsx` comme initialement prévu.
+**⚠️ Note :** Le composant s'appelle `BoardLabels.tsx` et non `BoardCoordinates.tsx` comme initialement prévu. `BoardCoordinates.tsx` n'existe pas encore.
 
-### 3. **Intégration dans le Plateau** (`Board.tsx`)
+### 3. **Intégration dans le Plateau** (`Board.tsx`) ✅ **IMPLÉMENTÉ**
 - Ajout de `BoardLabels` comme couche séparée
 - Z-index optimisé : coordonnées au-dessus de la grille, sous les pierres
 - Mode debug désactivé par défaut
 
-### 4. **Configuration du Jeu** (`GameScreen.tsx`)
+### 4. **Configuration du Jeu** (`GameScreen.tsx`) ✅ **IMPLÉMENTÉ**
 - `showDebug={false}` par défaut
 - Possibilité de réactiver pour le développement si nécessaire
 
@@ -82,7 +82,7 @@
 - Fonctionne avec tous les plateaux 9x9
 
 ### **Personnalisation**
-Pour modifier l'apparence des coordonnées, éditer `BoardCoordinates.tsx` :
+Pour modifier l'apparence des coordonnées, éditer `BoardLabels.tsx` :
 
 ```typescript
 // Changer la couleur
@@ -111,7 +111,7 @@ left: 4 → left: 8
 ## 🔍 **Dépannage**
 
 ### **Si les coordonnées ne s'affichent pas**
-1. Vérifier que `BoardCoordinates` est importé dans `Board.tsx`
+1. Vérifier que `BoardLabels` est importé dans `Board.tsx`
 2. S'assurer que le composant est bien placé dans la hiérarchie
 3. Vérifier les styles CSS et z-index
 
@@ -120,10 +120,31 @@ left: 4 → left: 8
 2. Ajuster les valeurs de `gridMargin` et `gridSize`
 3. Tester avec différentes tailles d'écran
 
+## 🔄 **Prochaines Étapes**
+
+### **Priorité 1 : Finaliser l'alignement parfait**
+1. Refactoriser `Intersection.tsx` pour éliminer les marges négatives
+2. Utiliser uniquement les calculs de `boardLayout.ts` pour le centrage
+3. Tester l'alignement sur différents écrans
+
+### **Priorité 2 : Optimisations**
+1. Vérifier que tous les composants utilisent les mêmes constantes
+2. Ajouter des tests visuels pour l'alignement
+3. Documenter les bonnes pratiques d'utilisation
+
 ## ✨ **Avantages**
 
-- **Lisibilité** : Grille claire sans obstruction
-- **Professionnalisme** : Apparence standard des plateaux de Go
-- **Accessibilité** : Coordonnées facilement identifiables
-- **Performance** : Pas de rendu de coordonnées sur chaque intersection
-- **Maintenance** : Code centralisé et réutilisable
+- **Lisibilité** : Grille claire sans obstruction ✅
+- **Professionnalisme** : Apparence standard des plateaux de Go ✅
+- **Accessibilité** : Coordonnées facilement identifiables ✅
+- **Performance** : Pas de rendu de coordonnées sur chaque intersection ✅
+- **Maintenance** : Code centralisé et réutilisable ✅
+
+## 📊 **Statut Actuel**
+
+- **BoardLabels.tsx** : ✅ **IMPLÉMENTÉ** et fonctionnel
+- **BoardCoordinates.tsx** : ❌ **N'EXISTE PAS** (remplacé par BoardLabels)
+- **Alignement des coordonnées** : ✅ **TRÈS BON**
+- **Intégration dans le plateau** : ✅ **COMPLÈTE**
+
+**⚠️ Amélioration restante :** Finaliser l'alignement parfait en éliminant les marges négatives dans `Intersection.tsx`.

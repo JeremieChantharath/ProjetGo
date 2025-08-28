@@ -10,45 +10,46 @@
 ### Après les améliorations :
 - ✅ Marges internes de 16px autour du plateau
 - ✅ Toutes les intersections sont entièrement visibles
-- ✅ Les pierres sont parfaitement centrées sur leurs intersections
+- ✅ Les pierres sont bien centrées sur leurs intersections
 - ✅ Les coordonnées de debug sont en gris clair avec fond semi-transparent
 - ✅ Responsivité maintenue (plateau reste carré et s'adapte à l'écran)
 
-**⚠️ Note :** Les intersections utilisent encore des marges négatives en pourcentage avec `transform: translate` pour le centrage. Une refactorisation complète vers les utilitaires `boardLayout.ts` est prévue.
+**⚠️ Note :** Les intersections utilisent maintenant les utilitaires `boardLayout.ts` pour le positionnement, mais conservent encore des marges négatives avec `transform: translate` pour le centrage final. Une refactorisation complète pour éliminer ces marges négatives est prévue.
 
 ## 🔧 Modifications Techniques
 
-### 1. Ajout de Padding au Plateau (`Board.tsx`)
+### 1. Ajout de Padding au Plateau (`Board.tsx`) ✅ **IMPLÉMENTÉ**
 ```typescript
 padding: BOARD_PADDING, // 16px de padding interne
 ```
 
-### 2. Nouveau Système de Layout (`boardLayout.ts`)
+### 2. Nouveau Système de Layout (`boardLayout.ts`) ✅ **IMPLÉMENTÉ**
 - Constantes centralisées pour le padding et les marges
 - Fonctions utilitaires pour calculer les positions
 - Cohérence entre tous les composants
 
-### 3. Repositionnement de la Grille (`Grid.tsx`)
+### 3. Repositionnement de la Grille (`Grid.tsx`) ✅ **IMPLÉMENTÉ**
 - Lignes horizontales et verticales repositionnées
 - Points étoiles (hoshi) correctement placés
 - Utilisation des utilitaires de layout
 
-### 4. Optimisation des Intersections (`Intersection.tsx`)
-- Taille augmentée à 24x24px pour une meilleure zone de clic
-- Positionnement précis avec les nouvelles marges
-- Coordonnées de debug stylisées (gris clair, fond semi-transparent)
+### 4. Optimisation des Intersections (`Intersection.tsx`) 🔄 **PARTIELLEMENT IMPLÉMENTÉ**
+- Taille augmentée à 24x24px pour une meilleure zone de clic ✅
+- Positionnement précis avec les nouvelles marges via `boardLayout.ts` ✅
+- **Centrage** : Encore des marges négatives avec `transform: translate` ⚠️
+- Coordonnées de debug stylisées (gris clair, fond semi-transparent) ✅
 
-### 5. Amélioration des Pierres (`Stone.tsx`)
+### 5. Amélioration des Pierres (`Stone.tsx`) ✅ **IMPLÉMENTÉ**
 - Taille réduite à 90% pour éviter d'être coupées
 - Support de la sélection avec bordure rouge
 
-### 6. Indicateurs de Libertés (`LibertyIndicator.tsx`)
+### 6. Indicateurs de Libertés (`LibertyIndicator.tsx`) ✅ **IMPLÉMENTÉ**
 - Repositionnement correct avec les nouvelles marges
 - Indicateur de sélection bien visible
 
 ## 📐 Calculs de Position
 
-### Formule de positionnement :
+### Formule de positionnement : ✅ **IMPLÉMENTÉ**
 ```typescript
 const position = GRID_MARGIN_PERCENT + (index / (size - 1)) * GRID_SIZE_PERCENT
 ```
@@ -76,7 +77,7 @@ const position = GRID_MARGIN_PERCENT + (index / (size - 1)) * GRID_SIZE_PERCENT
 
 ## 🧪 Tests
 
-Un fichier de test a été créé (`boardLayout.test.ts`) pour vérifier :
+Un fichier de test a été créé (`boardLayout.test.ts`) pour vérifier : ✅ **IMPLÉMENTÉ**
 - Calculs de position des intersections
 - Calculs de position des lignes de grille
 - Positions aux bords et au centre du plateau
@@ -95,3 +96,25 @@ Le plateau conserve son aspect ratio 1:1 et s'adapte automatiquement à :
 - Différentes tailles d'écran
 - Orientations portrait et paysage
 - Densités de pixels variables
+
+## 🔄 Prochaines Étapes
+
+### Priorité 1 : Finaliser l'alignement parfait
+1. Refactoriser `Intersection.tsx` pour éliminer les marges négatives
+2. Utiliser uniquement les calculs de `boardLayout.ts` pour le centrage
+3. Tester l'alignement sur différents écrans
+
+### Priorité 2 : Optimisations
+1. Vérifier que tous les composants utilisent les mêmes constantes
+2. Ajouter des tests visuels pour l'alignement
+3. Documenter les bonnes pratiques d'utilisation
+
+## ✨ Résultats Actuels
+
+- **Alignement très bon** : Coordonnées, grille et intersections bien alignées ✅
+- **Cohérence visuelle** : Plateau harmonieux et professionnel ✅
+- **Maintenance simplifiée** : Code centralisé et réutilisable ✅
+- **Performance optimisée** : Calculs unifiés et efficaces ✅
+- **Responsivité maintenue** : S'adapte à tous les écrans ✅
+
+**⚠️ Amélioration restante :** Éliminer les marges négatives dans `Intersection.tsx` pour un alignement parfait.

@@ -32,14 +32,14 @@
 ## 🎯 **Fonctionnalités à développer**
 
 ### ✅ **Phase 1 : Structure de base (Aujourd'hui)**
-- [ ] Navigation entre écrans
-- [ ] Écran de connexion (input nom + bouton)
-- [ ] Écran de jeu (plateau 9x9 visuel)
+- [x] Navigation entre écrans
+- [x] Écran de connexion (input nom + bouton)
+- [x] Écran de jeu (plateau 9x9 visuel)
 - [ ] Design de base
 
 ### ✅ **Phase 2 : Logique de jeu (Prochaine session)**
-- [ ] Plateau interactif (poser des pierres)
-- [ ] Alternance des tours
+- [x] Plateau interactif (poser des pierres)
+- [x] Alternance des tours
 - [ ] Règles de capture basiques
 - [ ] Gestion des scores
 

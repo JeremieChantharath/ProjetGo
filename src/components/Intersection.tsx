@@ -9,6 +9,7 @@ interface IntersectionProps {
   value: number; // 0 = vide, 1 = noir, 2 = blanc
   onPress: (row: number, col: number) => void;
   showDebug?: boolean;
+  isSelected?: boolean;
 }
 
 export const Intersection: React.FC<IntersectionProps> = ({
@@ -17,6 +18,7 @@ export const Intersection: React.FC<IntersectionProps> = ({
   value,
   onPress,
   showDebug = false,
+  isSelected = false,
 }) => {
   return (
     <TouchableOpacity
@@ -30,7 +32,7 @@ export const Intersection: React.FC<IntersectionProps> = ({
         },
       ]}
     >
-      {value !== 0 && <Stone player={value as Player} />}
+      {value !== 0 && <Stone player={value as Player} isSelected={isSelected} />}
       {showDebug && (
         <Text style={styles.intersectionDebug}>{row},{col}</Text>
       )}

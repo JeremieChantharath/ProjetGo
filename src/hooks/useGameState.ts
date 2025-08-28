@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Player, Board, GameState } from '../types/game';
+import { isValidMove, captureStones } from '../utils/gameRules';
 
 export const useGameState = (size: number = 9) => {
   const [board, setBoard] = useState<Board>(
@@ -8,6 +9,7 @@ export const useGameState = (size: number = 9) => {
   const [currentPlayer, setCurrentPlayer] = useState<Player>(1);
   const [lastAction, setLastAction] = useState<string>('Aucune action');
   const [debugLogs, setDebugLogs] = useState<string[]>([]);
+  const [capturedStones, setCapturedStones] = useState<{ [key in Player]: number }>({ 1: 0, 2: 0 });
 
   // Créer les intersections (81 points sur un plateau 9x9)
   const intersections = useMemo(() => {
@@ -34,6 +36,14 @@ export const useGameState = (size: number = 9) => {
       console.log(`❌ Intersection déjà occupée, placement impossible`);
       return;
     }
+
+    // Vérifier si le coup est valide selon les règles du Go
+    if (!isValidMove(board, row, col, currentPlayer)) {
+      const errorLog = `❌ Coup invalide: suicide non autorisé`;
+      setDebugLogs(prev => [...prev.slice(-4), errorLog]);
+      console.log(`❌ Coup invalide: suicide non autorisé`);
+      return;
+    }
     
     const successLog = `✅ Pierre ${currentPlayer === 1 ? 'noire' : 'blanche'} placée en (${row}, ${col})`;
     setDebugLogs(prev => [...prev.slice(-4), successLog]);
@@ -44,8 +54,26 @@ export const useGameState = (size: number = 9) => {
     setBoard((prev) => {
       const next = prev.map((r) => r.slice());
       next[row][col] = currentPlayer;
-      console.log(`🔄 Nouveau plateau:`, next);
-      return next;
+      
+      // Appliquer la capture des pierres
+      const { newBoard, capturedCount } = captureStones(next);
+      
+      // Mettre à jour le compteur de pierres capturées
+      setCapturedStones(prevCaptured => ({
+        1: prevCaptured[1] + capturedCount[1],
+        2: prevCaptured[2] + capturedCount[2]
+      }));
+      
+      // Afficher les informations de capture
+      if (capturedCount[1] > 0 || capturedCount[2] > 0) {
+        const captureLog = `🎯 Capture: ${capturedCount[1]} pierre(s) noire(s), ${capturedCount[2]} pierre(s) blanche(s)`;
+        setDebugLogs(prev => [...prev.slice(-4), captureLog]);
+        setLastAction(`Capture: ${capturedCount[1]} pierre(s) noire(s), ${capturedCount[2]} pierre(s) blanche(s)`);
+        console.log(`🎯 Capture effectuée:`, capturedCount);
+      }
+      
+      console.log(`🔄 Nouveau plateau:`, newBoard);
+      return newBoard;
     });
     
     setCurrentPlayer((p) => {
@@ -62,6 +90,7 @@ export const useGameState = (size: number = 9) => {
     currentPlayer,
     lastAction,
     debugLogs,
+    capturedStones,
   };
 
   return {

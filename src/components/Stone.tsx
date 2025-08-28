@@ -4,14 +4,16 @@ import { Player } from '../types/game';
 
 interface StoneProps {
   player: Player;
+  isSelected?: boolean;
 }
 
-export const Stone: React.FC<StoneProps> = ({ player }) => {
+export const Stone: React.FC<StoneProps> = ({ player, isSelected = false }) => {
   return (
     <View
       style={[
         styles.stone,
         player === 1 ? styles.stoneBlack : styles.stoneWhite,
+        isSelected && styles.stoneSelected,
       ]}
     />
   );
@@ -40,5 +42,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
+  },
+  stoneSelected: {
+    borderWidth: 3,
+    borderColor: '#FF0000',
+    shadowColor: '#FF0000',
+    shadowOpacity: 0.8,
+    shadowRadius: 8,
+    elevation: 8,
   },
 });

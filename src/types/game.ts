@@ -12,6 +12,7 @@ export type GameState = {
   currentPlayer: Player;
   lastAction: string;
   debugLogs: string[];
+  capturedStones: { [key in Player]: number };
 };
 
 export type RootStackParamList = {

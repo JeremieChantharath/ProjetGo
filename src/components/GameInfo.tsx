@@ -8,13 +8,26 @@ interface GameInfoProps {
 }
 
 export const GameInfo: React.FC<GameInfoProps> = ({ gameState, playerName }) => {
-  const { board, currentPlayer, lastAction, debugLogs } = gameState;
+  const { board, currentPlayer, lastAction, debugLogs, capturedStones } = gameState;
 
   return (
     <>
       <Text style={styles.title}>Plateau 9x9</Text>
       <Text style={styles.subtitle}>Bon jeu, {playerName} !</Text>
       <Text style={styles.turnText}>Tour: {currentPlayer === 1 ? 'Noir' : 'Blanc'}</Text>
+      
+      {/* Informations de capture */}
+      <View style={styles.captureInfo}>
+        <Text style={styles.captureTitle}>Pierres capturées:</Text>
+        <View style={styles.captureCounts}>
+          <Text style={[styles.captureCount, styles.blackStone]}>
+            ● {capturedStones[1]} pierre(s) noire(s)
+          </Text>
+          <Text style={[styles.captureCount, styles.whiteStone]}>
+            ○ {capturedStones[2]} pierre(s) blanche(s)
+          </Text>
+        </View>
+      </View>
       
       {/* Debug info */}
       <View style={styles.debugInfo}>
@@ -50,6 +63,35 @@ const styles = StyleSheet.create({
   turnText: {
     textAlign: 'center',
     marginBottom: 8,
+  },
+  captureInfo: {
+    backgroundColor: '#f8f9fa',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#dee2e6',
+  },
+  captureTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginBottom: 8,
+    color: '#495057',
+  },
+  captureCounts: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  captureCount: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  blackStone: {
+    color: '#000',
+  },
+  whiteStone: {
+    color: '#666',
   },
   debugInfo: {
     backgroundColor: '#f0f0f0',

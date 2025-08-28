@@ -14,6 +14,8 @@
 - Calculs de positionnement unifiés et cohérents
 - Espacement uniforme entre toutes les intersections
 
+**⚠️ Note :** Les composants `Intersection` utilisent encore des marges négatives en pourcentage avec `transform: translate` pour le centrage. Les utilitaires `boardLayout.ts` sont prêts mais pas encore utilisés par tous les composants.
+
 ## 🔧 **Modifications Techniques**
 
 ### 1. **Nouvelle Logique de Positionnement**

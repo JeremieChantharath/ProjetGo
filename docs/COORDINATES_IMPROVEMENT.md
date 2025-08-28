@@ -21,15 +21,17 @@
 - Conservation de la propriété `showDebug` pour usage futur si nécessaire
 - Interface mise à jour avec `isSelected` pour la sélection des pierres
 
-### 2. **Nouveau Composant BoardCoordinates** (`BoardCoordinates.tsx`)
+### 2. **Composant BoardLabels** (utilisé à la place de BoardCoordinates)
 - Coordonnées discrètes sur les bords uniquement
 - **Colonnes** : A, B, C, D, E, F, G, H, J (en haut)
 - **Lignes** : 1, 2, 3, 4, 5, 6, 7, 8, 9 (à gauche)
 - Style discret : gris clair (#666666), petite taille (12px)
 - Positionnement précis avec les marges du plateau
 
+**⚠️ Note :** Le composant s'appelle `BoardLabels.tsx` et non `BoardCoordinates.tsx` comme initialement prévu.
+
 ### 3. **Intégration dans le Plateau** (`Board.tsx`)
-- Ajout de `BoardCoordinates` comme couche séparée
+- Ajout de `BoardLabels` comme couche séparée
 - Z-index optimisé : coordonnées au-dessus de la grille, sous les pierres
 - Mode debug désactivé par défaut
 

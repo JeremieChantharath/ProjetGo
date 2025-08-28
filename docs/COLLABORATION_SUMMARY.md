@@ -13,6 +13,8 @@
 - ✅ **Tests unitaires** : Création de tests complets pour valider les calculs
 - ✅ **Script de debug** : `debug-positions.js` pour vérifier les positions
 
+**⚠️ Note :** Les marges négatives ont été remplacées par des `transform: translate`, mais les composants utilisent encore des pourcentages. Une refactorisation complète vers les utilitaires `boardLayout.ts` est prévue.
+
 ### 3. **Documentation créée**
 - ✅ **DEBUG_STATUS.md** : État actuel et problèmes identifiés
 - ✅ **COLLABORATION_SUMMARY.md** : Ce résumé

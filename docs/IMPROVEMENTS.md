@@ -14,6 +14,8 @@
 - ✅ Les coordonnées de debug sont en gris clair avec fond semi-transparent
 - ✅ Responsivité maintenue (plateau reste carré et s'adapte à l'écran)
 
+**⚠️ Note :** Les intersections utilisent encore des marges négatives en pourcentage avec `transform: translate` pour le centrage. Une refactorisation complète vers les utilitaires `boardLayout.ts` est prévue.
+
 ## 🔧 Modifications Techniques
 
 ### 1. Ajout de Padding au Plateau (`Board.tsx`)

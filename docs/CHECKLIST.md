@@ -3,18 +3,18 @@
 ## 📋 **Étapes d'installation et configuration**
 
 ### ✅ **Prérequis (vérifier)**
-- [x ] Node.js installé (`node --version`)
-- [ x] npm installé (`npm --version`)
-- [x ] Terminal PowerShell ouvert
+- [x] Node.js installé (`node --version`)
+- [x] npm installé (`npm --version`)
+- [x] Terminal PowerShell ouvert
 
 ### ✅ **Installation des outils**
-- [ x] Installer Expo CLI globalement : `npm install -g @expo/cli`
-- [ x] Vérifier l'installation : `expo --version`
+- [x] Installer Expo CLI globalement : `npm install -g @expo/cli`
+- [x] Vérifier l'installation : `expo --version`
 
 ### ✅ **Création du projet**
-- [x ] Créer le projet : `npx create-expo-app GoGame --template blank-typescript`
-- [x ] Aller dans le dossier : `cd GoGame`
-- [x ] Installer les dépendances : `npm install`
+- [x] Créer le projet : `npx create-expo-app GoGame --template blank-typescript`
+- [x] Aller dans le dossier : `cd GoGame`
+- [x] Installer les dépendances : `npm install`
 
 ### ✅ **Test initial**
 - [x] Lancer le projet : `npm start`
@@ -31,25 +31,25 @@
 
 ## 🎯 **Fonctionnalités à développer**
 
-### ✅ **Phase 1 : Structure de base (Aujourd'hui)**
+### ✅ **Phase 1 : Structure de base (Terminée)**
 - [x] Navigation entre écrans
 - [x] Écran de connexion (input nom + bouton)
 - [x] Écran de jeu (plateau 9x9 visuel)
-- [ ] Design de base
+- [x] Design de base
 
-### ✅ **Phase 2 : Logique de jeu (Prochaine session)**
+### 🔄 **Phase 2 : Logique de jeu (En cours)**
 - [x] Plateau interactif (poser des pierres)
 - [x] Alternance des tours
-- [ ] Règles de capture basiques
+- [x] Règles de capture basiques
 - [ ] Gestion des scores
 
-### ✅ **Phase 3 : Mode 2 joueurs local**
+### ⏳ **Phase 3 : Mode 2 joueurs local (À faire)**
 - [ ] Gestion des 2 joueurs
 - [ ] Fin de partie
 - [ ] Nouvelle partie
 - [ ] Historique des coups
 
-### ✅ **Phase 4 : Finalisation**
+### ⏳ **Phase 4 : Finalisation (À faire)**
 - [ ] Tests sur différents appareils
 - [ ] Correction des bugs
 - [ ] Interface utilisateur améliorée

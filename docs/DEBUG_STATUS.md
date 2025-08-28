@@ -11,7 +11,7 @@
 
 ### Composants implémentés selon les guidelines
 - ✅ `Board.tsx` : Utilise `BOARD_PADDING` et `showDebug = false`
-- ✅ `Intersection.tsx` : Utilise les fonctions de `boardLayout.ts` avec centrage correct
+- 🔄 `Intersection.tsx` : Utilise `transform: translate` mais pas encore les utilitaires `boardLayout.ts`
 - ✅ `BoardLabels.tsx` : Utilise les fonctions de `boardLayout.ts` avec centrage
 - ✅ `Grid.tsx` : Utilise `calculateGridLinePosition`
 - ✅ `BoardDebug.tsx` : Affiche positions, spacing et indices
@@ -40,8 +40,8 @@ Le Board utilise `BOARD_PADDING = 16px` mais les labels sont positionnés en pou
   - Index 8: 84.00% (J9)
 
 ### Tests unitaires
-- `boardLayout.test.ts` : Vérifie tous les calculs
-- **Statut** : ✅ Tous les tests passent
+- `boardLayout.test.ts` : Vérifie tous les calculs ✅ **Tous les tests passent (12/12)**
+- `gameRules.test.ts` : Vérifie les règles de jeu 🔄 **11/12 tests passent (1 échec sur la capture)**
 
 ## 🚀 Prochaines étapes recommandées
 

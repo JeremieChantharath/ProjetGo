@@ -4,6 +4,8 @@
 
 Ce document décrit l'implémentation du système de capture qui respecte les règles officielles du jeu de Go. Le système a été conçu pour être robuste, performant et facile à comprendre.
 
+**⚠️ Note importante :** Ce document décrit l'architecture et les composants du système de capture. Certaines fonctionnalités avancées (règle du ko, territoires, fin de partie) sont documentées mais pas encore implémentées.
+
 ## Fonctionnalités Implémentées
 
 ### 1. Règles de Capture de Base
@@ -43,9 +45,9 @@ Hook React qui gère l'état du jeu et intègre le système de capture :
 - Logs de débogage
 
 #### Composants UI
-- `LibertyIndicator` : Affichage visuel des libertés
-- `GroupInfo` : Informations détaillées sur les groupes
-- `GameRules` : Explication des règles du jeu
+- `LibertyIndicator` : Affichage visuel des libertés ✅ **Implémenté**
+- `GroupInfo` : Informations détaillées sur les groupes ✅ **Implémenté**
+- `GameRules` : Explication des règles du jeu ✅ **Implémenté**
 
 ### Algorithme de Capture
 

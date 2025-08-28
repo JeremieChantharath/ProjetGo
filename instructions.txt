@@ -1,0 +1,93 @@
+Titre : Instructions pour améliorer l’affichage de la grille de Go
+
+Objectif
+
+Ajuster la taille des intersections pour qu’elle s’adapte au plateau (de façon proportionnelle).
+
+Centrer correctement chaque intersection sur les croisements de la grille.
+
+Ajouter des repères (lettres et chiffres) en bordure du plateau pour indiquer les lignes (1‑9) et colonnes (A‑I) sans gêner la grille ni les pierres.
+
+Modifications à réaliser
+
+Intersection.tsx : taille dynamique des intersections
+
+À l’heure actuelle, les intersections ont une largeur et une hauteur fixes (20 px) avec un décalage de −10 px, ce qui engendre un décalage dès que la taille du plateau varie. Remplace ces valeurs fixes par un calcul basé sur size (nombre de lignes/colonnes ; sur un plateau 9×9, size = 9).
+
+Exemple :
+
+// Dans Intersection.tsx
+const tilePercent = 100 / (size - 1);
+
+<TouchableOpacity
+  activeOpacity={0.7}
+  onPress={() => onPress(row, col)}
+  style={[
+    styles.intersection,
+    {
+      top: `${(row / (size - 1)) * 100}%`,
+      left: `${(col / (size - 1)) * 100}%`,
+      width: `${tilePercent}%`,
+      height: `${tilePercent}%`,
+      marginLeft: `-${tilePercent / 2}%`,
+      marginTop: `-${tilePercent / 2}%`,
+    },
+  ]}
+>
+  {/* Pierre et debug */}
+</TouchableOpacity>
+
+
+Les styles généraux (position: absolute, alignItems, justifyContent) restent dans styles.intersection. Les marges négatives utilisent tilePercent/2 pour centrer correctement l’élément sur la grille.
+
+Board.tsx : affichage des repères de lignes et colonnes
+
+Ajoute deux nouvelles couches en position: absolute pour afficher les coordonnées :
+
+Repères de colonnes : place un View au-dessus du plateau (par ex. top: -x%) avec pointerEvents="none". À l’intérieur, rends un Text pour chaque colonne (lettres A à I) positionné en pourcentage :
+
+{Array.from({ length: size }, (_, col) => (
+  <Text
+    key={`col-${col}`}
+    style={{
+      position: 'absolute',
+      left: `${(col / (size - 1)) * 100}%`,
+      transform: [{ translateX: -0.5 * tileWidth }],
+      fontSize: 10,
+      color: '#666',
+    }}
+  >
+    {String.fromCharCode(65 + col)}
+  </Text>
+))}
+
+
+Repères de lignes : similaire, mais positionné à gauche du plateau (par ex. left: -x%). Utilise des chiffres de 1 à 9. Place chaque Text verticalement avec top: ${(row / (size - 1)) * 100}% et un translateY (ou une marge) pour centrer.
+
+Ajuste ensuite le padding du plateau (par ex. via styles.board.paddingTop et paddingLeft) pour faire de la place à ces repères. Le décalage (x) doit être suffisant pour que le texte ne chevauche pas la grille.
+
+Responsive et marges
+
+Veille à ce que Board conserve un aspectRatio: 1 afin de rester carré.
+
+Le padding autour du plateau doit être calculé en fonction de tilePercent pour que les repères restent alignés lorsque la taille du plateau change.
+
+Teste la mise en page sur plusieurs résolutions (simulateur ou appareils) afin de vérifier que l’ensemble reste harmonieux.
+
+Résultat attendu
+
+Les intersections sont toujours alignées avec les croisements de la grille, quel que soit l’écran.
+
+Les lettres A–I apparaissent au‑dessus du plateau et les chiffres 1‑9 à gauche, chacun centré par rapport à sa colonne/ligne.
+
+Les pierres restent centrées sur les intersections.
+
+Les repères sont discrets (couleur grise, petite taille) et ne gênent pas l’interaction.
+
+Conseils supplémentaires
+
+Pour plus de clarté, crée éventuellement un composant dédié (par exemple BoardLabels.tsx) pour encapsuler les repères de lignes et de colonnes.
+
+Utilise des variables ou constantes pour tilePercent et les offsets afin de pouvoir les ajuster facilement lors des tests.
+
+Une fois ces modifications en place, désactive showDebug dans GameScreen pour ne plus afficher les anciens labels de debug sur chaque intersection.
